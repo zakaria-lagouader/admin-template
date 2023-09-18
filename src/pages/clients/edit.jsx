@@ -1,14 +1,17 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Input from "../../components/form/Input";
 import Header from "../../components/layout/Header";
 import Layout from "../../components/layout/Layout";
 import { useMutation } from "react-query";
-import { createClient } from "./data";
+import { deleteClient, getClient, updateClient } from "./data";
+import { useEffect } from "react";
 
-function ClientsCreate() {
+function ClientsEdit() {
+	const { id } = useParams();
 	const navigate = useNavigate();
-	const { mutate } = useMutation(createClient, {
+
+	const { mutate } = useMutation(updateClient, {
 		onSuccess: () => {
 			navigate("/clients");
 		},
@@ -17,16 +20,39 @@ function ClientsCreate() {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm();
 
 	const onSubmit = (data) => {
-		mutate(data);
+		mutate({ idclient: id, ...data });
 	};
+
+	const OnDelete = () => {
+		if (confirm("Are you sure you want to delete this client?")) {
+			deleteClient(id).then(() => {
+				navigate("/clients");
+			});
+		}
+	};
+
+	useEffect(() => {
+		getClient(id).then((data) => {
+			reset(data);
+		});
+	}, [id]);
 
 	return (
 		<Layout mid>
-			<Header preTitle="new client" title="Create a new client" />
+			<Header
+				preTitle="update client"
+				title="Update client"
+				action={() => (
+					<button className="btn btn-danger lift" onClick={OnDelete}>
+						delete client
+					</button>
+				)}
+			/>
 
 			<form className="mb-4" onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
@@ -70,14 +96,14 @@ function ClientsCreate() {
 
 				<hr className="mt-5 mb-5" />
 				<button type="submit" className="btn btn-block btn-primary">
-					Create client
+					Modify client
 				</button>
 				<Link to="/clients" className="btn btn-block btn-link text-muted">
-					Cancel this client
+					Cancel
 				</Link>
 			</form>
 		</Layout>
 	);
 }
 
-export default ClientsCreate;
+export default ClientsEdit;

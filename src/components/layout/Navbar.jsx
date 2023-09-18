@@ -21,7 +21,7 @@ function Navbar() {
 
 				<a className="navbar-brand" href="index-2.html">
 					<img
-						src="assets/img/logo.svg"
+						src="/assets/img/logo.svg"
 						className="navbar-brand-img mx-auto"
 						alt="..."
 					/>

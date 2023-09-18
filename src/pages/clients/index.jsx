@@ -2,39 +2,43 @@ import { Link } from "react-router-dom";
 import TableWithSearch from "../../components/TableWithSearch";
 import Header from "../../components/layout/Header";
 import Layout from "../../components/layout/Layout";
-
-const clients = [
-	...Array(10)
-		.fill(0)
-		.map((_, i) => ({
-			id: i + 1,
-			name: "John Doe",
-			email: "john@mail.com",
-		})),
-];
+import { useQuery } from "react-query";
+import { getClients } from "./data";
 
 const columns = [
-	{ name: "Name", accessor: "name" },
+	{ name: "First Name", accessor: "first_name" },
+	{ name: "Last Name", accessor: "last_name" },
 	{ name: "Email", accessor: "email" },
+	{ name: "Phone", accessor: "phone_number" },
 ];
 
 function ClientsList() {
+	const { data, isLoading, error } = useQuery("clients", getClients);
+
+	if (isLoading) {
+		return "Loading...";
+	}
+
+	if (error) {
+		return "An error has occurred: " + error.message;
+	}
+
 	return (
 		<Layout>
 			<Header
 				preTitle="overview"
 				title="Clients"
 				action={() => (
-					<Link to="/create" className="btn btn-primary lift">
+					<Link to="/clients/create" className="btn btn-primary lift">
 						New Client
 					</Link>
 				)}
 			/>
 
 			<TableWithSearch
-				data={clients}
+				data={data}
 				columns={columns}
-				editURL={(row) => `/${row.id}/edit`}
+				editURL={(row) => "/clients/" + row.idclient + "/edit"}
 			/>
 		</Layout>
 	);
