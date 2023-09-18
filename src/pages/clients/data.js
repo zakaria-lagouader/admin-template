@@ -20,7 +20,7 @@ export async function getClient(id) {
 
 export async function createClient(client) {
 	try {
-		const response = await axios.post("/api/Client/create", client);
+		const response = await axios.post("/api/Client/create/", client);
 		return response.data;
 	} catch (error) {
 		console.error(error);

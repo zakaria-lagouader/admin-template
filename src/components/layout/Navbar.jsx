@@ -34,8 +34,13 @@ function Navbar() {
 				<div className="collapse navbar-collapse" id="sidebarCollapse">
 					<ul className="navbar-nav">
 						<li className="nav-item">
-							<Link className="nav-link" to="/">
+							<Link className="nav-link" to="/clients">
 								<i className="fe fe-users"></i> Clients
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link className="nav-link" to="/products">
+								<i className="fe fe-archive"></i> products
 							</Link>
 						</li>
 					</ul>
