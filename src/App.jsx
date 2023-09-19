@@ -9,6 +9,9 @@ import Home from "./pages/home";
 import SuppliersList from "./pages/suppliers";
 import SuppliersCreate from "./pages/suppliers/create";
 import SuppliersEdit from "./pages/suppliers/edit";
+import OrdersList from "./pages/orders";
+import OrdersCreate from "./pages/orders/create";
+import OrdersEdit from "./pages/orders/edit";
 
 function App() {
 	return (
@@ -24,6 +27,9 @@ function App() {
 				<Route path="/suppliers" element={<SuppliersList />} />
 				<Route path="/suppliers/create" element={<SuppliersCreate />} />
 				<Route path="/suppliers/:id/edit" element={<SuppliersEdit />} />
+				<Route path="/orders" element={<OrdersList />} />
+				<Route path="/orders/create" element={<OrdersCreate />} />
+				<Route path="/orders/:id/edit" element={<OrdersEdit />} />
 			</Routes>
 		</BrowserRouter>
 	);
