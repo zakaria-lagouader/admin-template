@@ -8,6 +8,7 @@ import ProductsEdit from "./pages/products/edit";
 import Home from "./pages/home";
 import SuppliersList from "./pages/suppliers";
 import SuppliersCreate from "./pages/suppliers/create";
+import SuppliersEdit from "./pages/suppliers/edit";
 
 function App() {
 	return (
@@ -22,7 +23,7 @@ function App() {
 				<Route path="/products/:id/edit" element={<ProductsEdit />} />
 				<Route path="/suppliers" element={<SuppliersList />} />
 				<Route path="/suppliers/create" element={<SuppliersCreate />} />
-				<Route path="/suppliers/:id/edit" element={<ProductsEdit />} />
+				<Route path="/suppliers/:id/edit" element={<SuppliersEdit />} />
 			</Routes>
 		</BrowserRouter>
 	);

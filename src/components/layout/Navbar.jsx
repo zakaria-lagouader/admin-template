@@ -19,13 +19,13 @@ function Navbar() {
 					<span className="navbar-toggler-icon"></span>
 				</button>
 
-				<a className="navbar-brand" href="index-2.html">
+				<Link className="navbar-brand" to="/">
 					<img
 						src="/assets/img/logo.svg"
 						className="navbar-brand-img mx-auto"
 						alt="..."
 					/>
-				</a>
+				</Link>
 
 				<div className="navbar-user d-md-none">
 					<button className="btn btn-sm btn-primary">logout</button>
@@ -40,12 +40,17 @@ function Navbar() {
 						</li>
 						<li className="nav-item">
 							<Link className="nav-link" to="/products">
-								<i className="fe fe-archive"></i> products
+								<i className="fe fe-archive"></i> Products
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link className="nav-link" to="/suppliers">
-								<i className="fe fe-users"></i> suppliers
+								<i className="fe fe-users"></i> Suppliers
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link className="nav-link" to="/orders">
+								<i className="fe fe-truck"></i> Orders
 							</Link>
 						</li>
 					</ul>

@@ -3,21 +3,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Input from "../../components/form/Input";
 import Header from "../../components/layout/Header";
 import Layout from "../../components/layout/Layout";
-import { useMutation } from "react-query";
-import { deleteClient, getClient, updateClient } from "./data";
+import { useMutation, useQuery } from "react-query";
 import { useEffect } from "react";
+import { deleteSupplier, getSupplier, updateSupplier } from "./data";
+import Select from "../../components/form/Select";
+import { getProducts } from "../products/data";
 
-function ClientsEdit() {
+function SuppliersEdit() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 
-	const { mutate } = useMutation(updateClient, {
+	const { data: products, isLoading, error } = useQuery("products", getProducts);
+	const options = products
+		? products.map((product) => ({
+				value: product.idproduct,
+				label: product.name,
+		  }))
+		: [];
+
+	const { mutate } = useMutation(updateSupplier, {
 		onSuccess: () => {
-			navigate("/clients");
+			navigate("/suppliers");
 		},
 	});
 
 	const {
+		control,
 		register,
 		handleSubmit,
 		reset,
@@ -25,80 +36,71 @@ function ClientsEdit() {
 	} = useForm();
 
 	const onSubmit = (data) => {
-		mutate({ idclient: id, ...data });
+		mutate({ id, name: data.name, products_supplied: data.products.map((p) => p.value) });
 	};
 
 	const OnDelete = () => {
-		if (confirm("Are you sure you want to delete this client?")) {
-			deleteClient(id).then(() => {
-				navigate("/clients");
+		if (confirm("Are you sure you want to delete this supplier?")) {
+			deleteSupplier(id).then(() => {
+				navigate("/suppliers");
 			});
 		}
 	};
 
 	useEffect(() => {
-		getClient(id).then((data) => {
-			reset(data);
+		getSupplier(id).then((data) => {
+			reset({
+				name: data.name,
+				products: data.products_supplied.map((id, i) => ({
+					value: id,
+					label: data.NameOfTheproductsSupplied[i],
+				})),
+			});
 		});
 	}, [id]);
 
 	return (
 		<Layout mid>
 			<Header
-				preTitle="update client"
-				title="Update client"
+				preTitle="update supplier"
+				title="Update supplier"
 				action={() => (
 					<button className="btn btn-danger lift" onClick={OnDelete}>
-						delete client
+						delete supplier
 					</button>
 				)}
 			/>
 
 			<form className="mb-4" onSubmit={handleSubmit(onSubmit)}>
 				<div className="row">
-					<div className="col-12 col-md-6">
+					<div className="col-12">
 						<Input
-							label="First name"
-							name="first_name"
-							{...register("first_name", {
-								required: "First Name is required",
+							label="Name"
+							name="name"
+							{...register("name", {
+								required: "Name is required",
 							})}
-							error={errors.first_name}
+							error={errors.name}
 						/>
 					</div>
-					<div className="col-12 col-md-6">
-						<Input
-							label="Last name"
-							name="last_name"
-							{...register("last_name", { required: "Last Name is required" })}
-							error={errors.last_name}
-						/>
-					</div>
-					<div className="col-12 col-md-6">
-						<Input
-							label="Email"
-							name="email"
-							{...register("email", { required: "Email is required" })}
-							error={errors.email}
-						/>
-					</div>
-					<div className="col-12 col-md-6">
-						<Input
-							label="Phone Number"
-							name="phone_number"
-							{...register("phone_number", {
-								required: "Phone Number is required",
-							})}
-							error={errors.phone_number}
+					<div className="col-12">
+						<Select
+							multiple
+							label="Products"
+							name="products"
+							control={control}
+							error={errors.products}
+							options={options}
+							rules={{ required: "Products are required" }}
 						/>
 					</div>
 				</div>
 
 				<hr className="mt-5 mb-5" />
 				<button type="submit" className="btn btn-block btn-primary">
-					Modify client
+					Modify supplier
 				</button>
-				<Link to="/clients" className="btn btn-block btn-link text-muted">
+				<Link to="/suppliers" className="btn btn-block btn-link text-muted">
 					Cancel
 				</Link>
 			</form>
@@ -106,4 +108,4 @@ function ClientsEdit() {
 	);
 }
 
-export default ClientsEdit;
+export default SuppliersEdit;

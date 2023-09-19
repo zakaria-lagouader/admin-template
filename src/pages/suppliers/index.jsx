@@ -13,10 +13,12 @@ const columns = [
 function SuppliersList() {
 	const { data, isLoading, error } = useQuery("suppliers", getSuppliers);
 
-	const suppliers = data.map((supplier) => ({
-		...supplier,
-		products: supplier.NameOfTheproductsSupplied.join(", "),
-	}));
+	const suppliers = data
+		? data.map((supplier) => ({
+				...supplier,
+				products: supplier.NameOfTheproductsSupplied.join(", "),
+		  }))
+		: [];
 
 	if (isLoading) {
 		return "Loading...";

@@ -20,7 +20,7 @@ export async function getSupplier(id) {
 
 export async function createSupplier(supplier) {
 	try {
-		const response = await axios.post("/api/supplier/create/", supplier);
+		const response = await axios.post("/api/supplier/create", supplier);
 		return response.data;
 	} catch (error) {
 		console.error(error);
