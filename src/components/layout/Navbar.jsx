@@ -43,6 +43,11 @@ function Navbar() {
 								<i className="fe fe-archive"></i> products
 							</Link>
 						</li>
+						<li className="nav-item">
+							<Link className="nav-link" to="/suppliers">
+								<i className="fe fe-users"></i> suppliers
+							</Link>
+						</li>
 					</ul>
 
 					<div className="mt-auto"></div>
