@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
 
 	const UpdateToken = async () => {
 		if (user === null || authTokens === null) return;
-		console.log("Updating token");
 		try {
 			const { data } = await axios.post("/api/token/refresh", {
 				refresh: authTokens?.refresh,
