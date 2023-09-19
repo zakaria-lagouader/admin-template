@@ -47,6 +47,7 @@ function OrdersList() {
 				data={orders}
 				columns={columns}
 				editURL={(row) => "/orders/" + row.id + "/edit"}
+				viewURL={(row) => "/orders/" + row.id + "/details"}
 			/>
 		</Layout>
 	);

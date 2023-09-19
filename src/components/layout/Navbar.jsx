@@ -53,6 +53,11 @@ function Navbar() {
 								<i className="fe fe-truck"></i> Orders
 							</Link>
 						</li>
+						<li className="nav-item">
+							<Link className="nav-link" to="/orders-items">
+								<i className="fe fe-box"></i> Orders Items
+							</Link>
+						</li>
 					</ul>
 
 					<div className="mt-auto"></div>

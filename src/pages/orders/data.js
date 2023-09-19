@@ -18,6 +18,15 @@ export async function getOrder(id) {
 	}
 }
 
+export async function getOrderDetails(id) {
+	try {
+		const response = await axios.get(`/api/orderdetails/${id}`);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export async function createOrder(order) {
 	try {
 		const response = await axios.post("/api/order/create", order);

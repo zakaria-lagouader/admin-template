@@ -3,7 +3,9 @@ import { forwardRef } from "react";
 const Input = forwardRef(function Input({ label, name, error, ...props }, ref) {
 	return (
 		<div className="form-group">
-			<label htmlFor={name}>{label}</label>
+			<label className="form-label" htmlFor={name}>
+				{label}
+			</label>
 			<input
 				id={name}
 				name={name}

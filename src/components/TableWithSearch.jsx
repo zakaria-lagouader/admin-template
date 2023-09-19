@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 
-function TableWithSearch({ data, columns, editURL }) {
+function TableWithSearch({ data, columns, editURL, viewURL }) {
 	const [search, setSearch] = useState("");
 	const filteredData = useMemo(
 		() =>
@@ -44,6 +44,7 @@ function TableWithSearch({ data, columns, editURL }) {
 								</th>
 							))}
 							<th></th>
+							{viewURL && <th></th>}
 						</tr>
 					</thead>
 					<tbody className="list">
@@ -52,8 +53,16 @@ function TableWithSearch({ data, columns, editURL }) {
 								{columns.map(({ accessor }) => (
 									<td key={`${accessor}-${i}`}>{row[accessor]}</td>
 								))}
+								{viewURL && (
+									<td>
+										{/* Dropdown */}
+										<Link to={viewURL(row)} className="text-indo">
+											<span className="fe fe-eye" />
+											View
+										</Link>
+									</td>
+								)}
 								<td>
-									{/* Dropdown */}
 									<Link to={editURL(row)} className="text-warning">
 										<span className="fe fe-edit-2" />
 										Edit
