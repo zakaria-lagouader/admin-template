@@ -1,15 +1,14 @@
-import Main from "./Main"
-import Navbar from "./Navbar"
+import PrivateRoute from "../PrivateRoute";
+import Main from "./Main";
+import Navbar from "./Navbar";
 
 function Layout({ children, mid }) {
-    return (
-        <>
-            <Navbar />
-            <Main mid={mid}>
-                {children}
-            </Main>
-        </>
-    )
+	return (
+		<PrivateRoute>
+			<Navbar />
+			<Main mid={mid}>{children}</Main>
+		</PrivateRoute>
+	);
 }
 
-export default Layout
+export default Layout;

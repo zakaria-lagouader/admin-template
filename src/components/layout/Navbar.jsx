@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { authContext } from "../../context/auth";
 
 function Navbar() {
+	const { logout } = useContext(authContext);
 	return (
 		<nav
 			className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light"
@@ -28,7 +31,9 @@ function Navbar() {
 				</Link>
 
 				<div className="navbar-user d-md-none">
-					<button className="btn btn-sm btn-primary">logout</button>
+					<button className="btn btn-sm btn-primary" onClick={logout}>
+						logout
+					</button>
 				</div>
 
 				<div className="collapse navbar-collapse" id="sidebarCollapse">
@@ -63,7 +68,7 @@ function Navbar() {
 					<div className="mt-auto"></div>
 
 					<div className="navbar-user d-none d-md-flex" id="sidebarUser">
-						<button className="btn btn-primary w-100">
+						<button className="btn btn-primary w-100" onClick={logout}>
 							<span className="fe fe-log-out me-2"></span>
 							Logout
 						</button>

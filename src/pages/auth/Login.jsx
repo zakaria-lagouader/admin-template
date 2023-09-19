@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 import Input from "../../components/form/Input";
+import { useContext } from "react";
+import { authContext } from "../../context/auth";
+import { Navigate } from "react-router-dom";
 
 function Login() {
+	const { login, user } = useContext(authContext);
 	const {
 		register,
 		handleSubmit,
@@ -9,8 +13,10 @@ function Login() {
 	} = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
+		login(data);
 	};
+
+	if (user) return <Navigate to="/" />;
 
 	return (
 		<div className="d-flex vh-100 align-items-center bg-auth border-top border-top-2 border-primary">
@@ -21,14 +27,13 @@ function Login() {
 						<p className="text-muted text-center mb-5">Login to you dashboard.</p>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<Input
-								label="Email Address"
-								type="email"
-								name="email"
-								placeholder="name@address.com"
-								{...register("email", {
-									required: "Email is required",
+								label="Username"
+								name="username"
+								placeholder="usrename"
+								{...register("username", {
+									required: "Username is required",
 								})}
-								error={errors.email}
+								error={errors.username}
 							/>
 							<Input
 								label="Password"

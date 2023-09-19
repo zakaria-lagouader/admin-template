@@ -1,9 +1,5 @@
-import Layout from "../../components/layout/Layout";
+import { Navigate } from "react-router-dom";
 
 export default function Home() {
-	return (
-		<Layout>
-			<h1>Home</h1>
-		</Layout>
-	);
+	return <Navigate to="/clients" />;
 }
